@@ -5,8 +5,6 @@ db = SQLAlchemy()
 class Users(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    # email = db.Column(db.String(120), unique=True, nullable=False)
-    # password = db.Column(db.String(80), unique=False, nullable=False)
     name = db.Column(db.String(250), nullable=False, unique=True)
     person_favourites = db.relationship('Favourite_persons', back_populates='user_relationship')
     planet_favourites = db.relationship('Favourite_planets', back_populates='user_relationship')
@@ -17,7 +15,6 @@ class Users(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            # "email": self.email,
             "name": self.name,
             "person_favourites": [user.serialize() for user in self.person_favourites] if self.person_favourites else None
         }
